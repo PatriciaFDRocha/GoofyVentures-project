@@ -1,14 +1,13 @@
 const canvas = document.getElementById('adventures');
 const context = canvas.getContext('2d');
 
-let obstacle;
 let frame = 0;
 
 //Create class Game
 class Game {
     constructor() {
         this.goofy = {};
-        this.obstacles = [];
+        this.obstacle = [];
         this.score = 0;
     }
 }
@@ -24,6 +23,24 @@ class Game {
     const randomImgArr = ["../images/dog.jpg", "../images/banana.jpg"];
     const randomImg = Math.floor(Math.random()*randomImgArr.length);
     
+    //can only collide with banana image
+function obstacleCollision(obstacle) {
+    if(obstacle === bananaImg){
+        currentGame.score--;
+        if(currentGame.score < 0) {//
+            return !((currentGame.goofy.x > bananaImg.x + bananaImg.width) ||
+     (currentGame.goofy.x + currentGame.goofy.width < bananaImg.x) ||
+     (currentGame.goofy.y > bananaImg.y + bananaImg.height));
+        }
+
+
+    }//will increase points 
+    else if (dogImg.y > canvas.height) {
+            currentGame.score++;
+            document.getElementById('score').innerHTML = currentGame.score;
+            currentGame.obstacle.splice(index, 1);
+        }
+    }
 
     //Create class Obstacle
 class Obstacle {
@@ -34,45 +51,48 @@ class Obstacle {
         this.height = height;
     }
 
-
+    //?Remove updateObstacle from inside class -> changing scope to stop being undefined -> didn't work
+    //change function calling place -> didn't work
+    
     updateObstacle() {
-        //Randomise x value for obstacles falling from top
-        const minX = 10;
-        const maxX = 460;
-        const randomX = Math.floor(Math.random()*(maxX-minX) - minX);
 
-        //Create new obstacles every 100 frames
-        if(frame % 100 === 0) {
-            obstacle.push({
-                x:randomX,
-                y: 0,
-                width: 30,
-                height: 30
-            });
-        }
-        frame++;
+    //Randomise x value for obstacles falling from top
+    const minX = 10;
+    const maxX = 460;
+    const randomX = Math.floor(Math.random()*(maxX-minX) - minX);
 
-        //Drawing image for each obstacle
-        currentGame.obstacle.forEach((obstacle) => {
-            obstacle.x -= 3;
-            drawImage(randomImg, randomX, 0, 30, 30);
+    //Create new obstacles every 100 frames
+    if(frame % 100 === 0) {
+        obstacle.push({
+            x:randomX,
+            y: 0,
+            width: 30,
+            height: 30
+        });
+    }
+    frame++;
 
-            //Game Over if collision is true and score back to 0
-            if (obstacleCollision(obstacle)) {
-                currentGame.gameOver = true;
+    //Drawing image for each obstacle
+    currentGame.obstacle.forEach((obstacle) => {
+        obstacle.x -= 3;
+        drawImage(randomImg, randomX, 0, 30, 30);
 
-                currentGame.score = 0;
-                document.getElementById('score').innerHTML = 0;
+        //Game Over if collision is true and score back to 0
+        if (obstacleCollision(obstacle.bananaImg)) {
+            currentGame.gameOver = true;
 
-                currentGame.obstacles = [];
-                
-                alert("You almost got it!! Just remember that you never lose when you save a dog's life 😉");
+            currentGame.score = 0;
+            document.getElementById('score').innerHTML = 0;
+
+            currentGame.obstacles = [];
             
+            //Will try to change to different page
+            //?Create function that activates -> gameOver() and will show page
+            alert("You almost got it!! Just remember that you never lose when you save a dog's life 😉");
             }
         });
-
-        requestAnimationFrame(updateObstacle);
+    //requestAnimationFrame(updateObstacle);//update animation
     }
 }
-
+console.log(updateObstacle());
 

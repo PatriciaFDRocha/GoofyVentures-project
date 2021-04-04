@@ -9,7 +9,7 @@ class Goofy {
     }
     draw() {
         const image = new Image();
-        image.src = './goofy_PNG22.png';
+        image.src = '../images/goofy_PNG22.png';
         context.drawImage(image, this.x, this.y, this.width, this.height);
     }
 
