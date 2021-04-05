@@ -8,8 +8,9 @@ body {
   .game-intro {
     float: left;
     padding-right: 2rem;
-    width: 14rem;
-    margin-left: 4rem;
+    width: 20rem;
+    margin-left: 1rem;
+    margin-top: 4rem;
   }
   
   .game-intro p {
@@ -18,10 +19,10 @@ body {
   }
 
   body button {
-    font-size: 18px;
+    font-size: 16px;
     background-color: orange;
     color: #fff;
-    padding: 15px 25px;
+    padding: 10px 20px;
     border: 0;
     box-shadow: 0;
     border-radius: 5px;
@@ -37,12 +38,27 @@ body {
     background-image: url('../images/background-image.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    width: 28rem;
-    height: 19rem;
+    width: 35rem;
+    height: 24rem;
   }
 
   .game-goal {
     font-size: 12px;
     font-family: "Verdana";
-    padding: 4% 2%;
+    padding: 4% 1%;
+    margin-top: 3rem;
+  }
+
+  #game-over {
+    display: none;
+  }
+
+  #score-div {
+    font-size: medium;
+    font-weight: 600;
+  }
+
+  #game-over > img {
+    width:550px;
+    height: 450px;
   }

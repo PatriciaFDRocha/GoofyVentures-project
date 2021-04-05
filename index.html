@@ -10,25 +10,38 @@
 <body>
     <div class="game-intro">
         <h3> How to play </h3>
-        <p>Use the arrows of your keyboard (L) and (R) to rescue the dogs</p>
-        <p>But beware of the bananas, as Goofy will slip and fall, and then you lose the game</p>
+        <p>Use the arrows (L) (arrow image) and (R) (arrow image) to move Goofy</p>
+        <p>Commands: arrows: Left and Right. Space bar for jump</p>
+        <p>To win the game just collect as many dogs possible</p>
+        <p>You get points by collecting dogs and lose them by collecting bananas</p>
 
         <button id="start-button"> Start Game</button>
-        <div id="score-div">
-            <p>Score: <span id="score"> 0 </span></p>
-        </div>
+        <audio id="background-music" src=""></audio>
+
+        <button id="stop-button"> Stop Game</button>
+
     </div>
     
     <div id="game-board">
-        <canvas id="adventures" width="500" height="400"></canvas>
+        <canvas id="adventures" width="650" height="550"></canvas>
+    </div>
+    <div id="game-over">
+        <img src="images/goofy-falling.png" alt="goofy-falling"/>
+        <audio id="yahahui" src="./sounds/goofyScream.mp3"></audio>
     </div>
 
     <div class="game-goal">
+        <div id="score-div">
+            <p>Score: <span id="score"> 0 </span></p>
+        </div>
+
         <h4> Goal </h4>
-        <p>Help Goofy rescue all dogs, while avoiding bananas</p>
+        <p>Help Goofy rescue the dogs.</p>
+        <p>Avoid collecting bananas as Goofy will slip and fall.</p>
     </div>
-    <script src="./js/player.js" ></script>
+    <script src="./js/Game.js" ></script>
     <script src="./js/Obstacles.js" ></script>
+    <script src="./js/player.js" ></script>
     <script src="./js/index.js" ></script>
     
 </body>

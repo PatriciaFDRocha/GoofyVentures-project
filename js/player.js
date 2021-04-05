@@ -1,10 +1,10 @@
 
 class Goofy {
     constructor() {
-        this.x = 5;
-        this.y = 260;
-        this.width = 80;
-        this.height = 110;
+        this.x = 4;
+        this.y = 380;
+        this.width = 90;
+        this.height = 120;
         
     }
     draw() {
@@ -25,6 +25,11 @@ class Goofy {
             case 39: 
                 if (this.x < 450) {
                     this.x += 10
+            }
+            break;
+            case 32: 
+                if (this.y < 450) {
+                    this.y -= 10
             }
             break;
             }
