@@ -1,9 +1,9 @@
 
 let currentGame;
 let currentGoofy;
-let animationOverId = requestAnimationFrame(updateCanvas);
+let animationOverId;
 
-//const backgroundMusic = document.getElementById('background-music');
+const backgroundMusic = document.getElementById('background-music');
 const goofyScream = document.getElementById('yahahui');
 //let stopTime = 0;
 
@@ -16,7 +16,7 @@ document.getElementById('start-button').onclick = () => {
 document.getElementById('stop-button').onclick = () => {
     document.getElementById('game-over').style.display = "block";
     document.getElementById('adventures').style.display = "none";
-    goofyScream.play();
+
     gameOver();
 }
 
@@ -30,6 +30,7 @@ function startGame (){
     currentGame.goofy = currentGoofy;
     currentGame.goofy.draw();
 
+    backgroundMusic.play();
     updateCanvas();
 }
 
@@ -72,7 +73,7 @@ function updateCanvas() {
         }
     });
     if (!currentGame.gameOver) {
-        requestAnimationFrame(updateCanvas);
+        animationOverId = requestAnimationFrame(updateCanvas);
     }
 }
 
@@ -80,13 +81,13 @@ function gameOver() {
     if(currentGame.score <= 0) {
         console.log('game over');
         currentGame.gameOver = true;
-        
+        backgroundMusic.pause();
+
         document.getElementById('game-over').style.display = "block";
         document.getElementById('adventures').style.display = "none";
 
         alert("You almost got it!! Remember that you'll never lose when saving a dog's life 😉");
         goofyScream.play();
-
         cancelAnimationFrame(animationOverId);
 
     }
