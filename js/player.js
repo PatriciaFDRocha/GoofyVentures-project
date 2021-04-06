@@ -29,7 +29,7 @@ class Goofy {
             break;
             case 32: 
                 if (this.y < 450) {
-                    this.y -= 10
+                    this.y -= 50
             }
             break;
             }

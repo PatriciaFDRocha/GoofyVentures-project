@@ -21,6 +21,7 @@ document.getElementById('stop-button').onclick = () => {
 }
 
 document.addEventListener('keydown', (e) => {
+    e.preventDefault()
     currentGame.goofy.moveGoofy(e.keyCode);
 });
 
