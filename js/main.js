@@ -5,7 +5,7 @@ let animationOverId;
 
 const backgroundMusic = document.getElementById('background-music');
 const goofyScream = document.getElementById('yahahui');
-//let stopTime = 0;
+const winMusic = document.getElementById('win-game-music');
 
 document.getElementById('start-button').onclick = () => {
     document.getElementById('adventures').style.display = 'block';
@@ -14,9 +14,6 @@ document.getElementById('start-button').onclick = () => {
     startGame();
 }
 document.getElementById('stop-button').onclick = () => {
-    document.getElementById('game-over').style.display = "block";
-    document.getElementById('adventures').style.display = "none";
-
     gameOver();
 }
 
@@ -24,25 +21,45 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault()
     currentGame.goofy.moveGoofy(e.keyCode);
 });
+document.addEventListener('keyup', (e) => {
+    e.preventDefault()
+   currentGame.goofy.keyUpGoofy(e.keyCode);
+});
 
 function startGame (){
     currentGame = new Game();
     currentGoofy = new Goofy();
     currentGame.goofy = currentGoofy;
-    currentGame.goofy.draw();
+
+    winMusic.pause();
+    document.getElementById('win-game').style.display = 'none';
 
     backgroundMusic.play();
+
+    img.onload = updateCanvas;// start calling updateCanvas once the image is loaded
     updateCanvas();
 }
 
 
 function updateCanvas() {
     context.clearRect(0, 0, canvas.width, canvas.height);
+    backgroundImage.move();
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    backgroundImage.draw();
     currentGame.goofy.draw();
+
+    //jump
+    currentGame.goofy.hitBottom();
+    currentGoofy.vy = currentGoofy.vy + (gravity - currentGoofy.userPull);
+    currentGoofy.y += currentGoofy.vy;
+
+    currentGame.goofy.hitCeiling();
+
 
     //Randomise x value for obstacles falling from top
     const minX = 10;
-    const maxX = 460;
+    const maxX = 600;
     const randomX = Math.floor(Math.random()*(maxX-minX) - minX);
 
     //Create new obstacles every 100 frames
@@ -65,35 +82,51 @@ function updateCanvas() {
         if (obstacleCollision(obstacle)) {
             if(obstacle.type === 'banana'){
                 currentGame.score -= 5;
-                gameOver();
+                if (currentGame.score <= 0) {
+                    gameOver();
+                }
             } else {
+                currentGame.obstacles.splice(index, 1);
                 currentGame.score++;
+                if (currentGame.score === 5)  {
+                    winGame();
+                }
             }
             document.getElementById('score').innerHTML = currentGame.score;
+        }
+        if (obstacle.y > canvas.height) {
             currentGame.obstacles.splice(index, 1);
         }
     });
-    if (!currentGame.gameOver) {
+    if (!currentGame.gameOver && !currentGame.winGame) {
         animationOverId = requestAnimationFrame(updateCanvas);
     }
 }
 
 function gameOver() {
-    if(currentGame.score <= 0) {
-        console.log('game over');
-        currentGame.gameOver = true;
-        backgroundMusic.pause();
+    currentGame.score = 0;
+    currentGame.gameOver = true;
+    backgroundMusic.pause();
 
-        document.getElementById('game-over').style.display = "block";
-        document.getElementById('adventures').style.display = "none";
+    document.getElementById('game-over').style.display = "block";
+    document.getElementById('adventures').style.display = "none";
+    document.getElementById('win-game').style.display = 'none';
 
-        alert("You almost got it!! Remember that you'll never lose when saving a dog's life 😉");
-        goofyScream.play();
-        cancelAnimationFrame(animationOverId);
-
-    }
+    alert("You almost got it!! Remember that you'll never lose when saving a dog's life 😉");
+    goofyScream.play();
+    cancelAnimationFrame(animationOverId);
 }
 
+function winGame() {  
+    currentGame.winGame = true;
+    backgroundMusic.pause();
 
+    document.getElementById('win-game').style.display = 'block';
+    document.getElementById('adventures').style.display = "none";
+    document.getElementById('game-over').style.display = "none";
 
+    alert('You won! Congratulations!');
+    winMusic.play();
 
+    cancelAnimationFrame(animationOverId);
+}

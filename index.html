@@ -10,8 +10,9 @@
 <body>
     <div class="game-intro">
         <h3> How to play </h3>
-        <p>Use the arrows (L) (arrow image) and (R) (arrow image) to move Goofy</p>
-        <p>Commands: arrows: Left and Right. Space bar for jump</p>
+        <p>Use the arrowshteft and Rigth to move Goofy</p>
+        <img class="arrow" src="images/arrows.png" alt="arrows-image">
+        <p>And use the Space bar to jump</p>
         <p>To win the game just collect as many dogs possible</p>
         <p>You get points by collecting dogs and lose them by collecting bananas</p>
 
@@ -25,9 +26,15 @@
     <div id="game-board">
         <canvas id="adventures" width="650" height="550"></canvas>
     </div>
+
     <div id="game-over">
         <img src="images/goofy-falling.png" alt="goofy-falling"/>
         <audio id="yahahui" src="./sounds/goofyScream.mp3"></audio>
+    </div>
+
+    <div id="win-game">
+        <img src="./images/winner-trophy.png" alt="winner-trophy"/>
+        <audio id="win-game-music" src="./sounds/win-game-music.mp3"></audio>
     </div>
 
     <div class="game-goal">
@@ -42,7 +49,7 @@
     <script src="./js/Game.js" ></script>
     <script src="./js/Obstacles.js" ></script>
     <script src="./js/player.js" ></script>
-    <script src="./js/index.js" ></script>
+    <script src="./js/main.js" ></script>
     
 </body>
 </html>
