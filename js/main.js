@@ -88,7 +88,7 @@ function updateCanvas() {
             } else {
                 currentGame.obstacles.splice(index, 1);
                 currentGame.score++;
-                if (currentGame.score === 5)  {
+                if (currentGame.score === 15)  {
                     winGame();
                 }
             }
